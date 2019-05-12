@@ -46,3 +46,45 @@ while current_savings < total_cost * PORTION_DOWN_PAYMENT:
     annual_salary *= (1 + semiannual_raise)
 
 print ("It will take you", month, "months to save for the down payment.")
+
+#################
+#    ps3a.py    #
+# House Hunting #
+#################
+total_cost = 1000000
+annual_salary = integer_input('What is your starting annual salary? ')
+semiannual_raise = 7 / 100
+annual_return = 0.04
+
+def savings_in_36_months(salary, portion_saved, ann_ret):
+  # Determine savings in 36 months, based on annual salary, portion saved and rate of return
+  curr_sav = 0
+  for i in range(36):
+    curr_sav += (salary / 12 * portion_saved / 10000) + (curr_sav * ann_ret / 12)
+    # Give raise if necessary
+    if ((i + 1) % 6 == 0):
+        salary *= (1 + semiannual_raise)
+  return curr_sav
+
+
+test_range = range(10000)
+iterations = 0
+while len(test_range) > 2:
+  portion_saved = test_range[int(len(test_range) / 2)]
+
+  # Check saving with this rate at 36 months
+  current_savings = savings_in_36_months(annual_salary, portion_saved, annual_return)
+
+  if abs(current_savings - (total_cost * PORTION_DOWN_PAYMENT)) < 100:
+    print('we found the optimal rate', portion_saved, ' in ', iterations + 1, ' iterations.')
+    break
+  elif current_savings < (total_cost * PORTION_DOWN_PAYMENT):
+    # Reattempt with higher rate
+    test_range = test_range[int(len(test_range) / 2):]
+  elif current_savings > total_cost * PORTION_DOWN_PAYMENT:
+    test_range = test_range[:int(len(test_range) / 2)]
+
+  iterations += 1
+
+if len(test_range) <= 2:
+  print ("It is not possible to pay the down payment in three years.")
