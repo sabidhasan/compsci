@@ -94,27 +94,30 @@ def hangman(secret_word):
             raise ValueError
           break
         except:
+          print("You must enter a single, previously unpicked letter!")
           if warnings > 0:
             warnings -= 1
             print("You lose a warning; you have", warnings, "warnings left.")
           elif warnings == 0:
             print("You can't pick a letter? You lose a guess! You have", guesses, "guesses.")
             guesses -= 1
-          print("You must enter a single, unpicked letter!")
       
       # Update guesses, show user 
       letters_guessed.append(letter)
-      guesses -= 1
 
       # Check for win
       if is_word_guessed(secret_word, letters_guessed):
-        print ("You win!")
+        print ("You win! Score was", guesses * len(set(secret_word.split())))
         return True
 
       if letter in secret_word:
         print("Good guess! The letter", letter, "is in the word.")
       else:
         print("The letter", letter, "is not in the word. Try again.")
+        if letter in ['a', 'e', 'i', 'o', 'u']:
+          guesses -= 2
+        else:
+          guesses -= 1
       print(get_guessed_word(secret_word, letters_guessed))
       print("-----------------------")
 
