@@ -71,6 +71,52 @@ def get_available_letters(letters_guessed):
     '''
     return ''.join([letter for letter in string.ascii_lowercase if letter not in letters_guessed])
 
+def match_with_gaps(my_word, other_word):
+    '''
+    my_word: string with _ characters, current guess of secret word
+    other_word: string, regular English word
+    returns: boolean, True if all the actual letters of my_word match the 
+        corresponding letters of other_word, or the letter is the special symbol
+        _ , and my_word and other_word are of the same length;
+        False otherwise: 
+    '''
+    my_word = my_word.replace(" ", "")
+    if len(my_word) != len(other_word): return False
+    # Build dict of word
+    other_word_dist = {}
+    for (i, letter) in enumerate(other_word):
+      if not letter in other_word_dist:
+        other_word_dist[letter] = []
+      other_word_dist[letter].append(i)
+
+    # Match my_word with dict above
+    for letter in other_word_dist:
+      my_word_distribution = set(my_word[pos] for pos in other_word_dist[letter])
+      if len(my_word_distribution) != 1 or (not letter in my_word_distribution and not "_" in my_word_distribution):
+        return False
+    return True
+
+def show_possible_matches(my_word):
+    '''
+    my_word: string with _ characters, current guess of secret word
+    returns: nothing, but should print out every word in wordlist that matches my_word
+             Keep in mind that in hangman when a letter is guessed, all the positions
+             at which that letter occurs in the secret word are revealed.
+             Therefore, the hidden letter(_ ) cannot be one of the letters in the word
+             that has already been revealed.
+
+    '''
+    matches = []
+    for word in wordlist:
+      if match_with_gaps(my_word, word): matches.append(word)
+    if len(matches) != 0:
+      for word in matches: print(word, end=" ")
+      print("\n")
+    else:
+      print("No matches found")
+
+
+
 def hangman(secret_word):
     '''
     secret_word: string, the secret word to guess.
@@ -90,11 +136,11 @@ def hangman(secret_word):
       while True:
         try:
           letter = input("Enter a new letter: ").lower()
-          if not letter.isalpha() or len(str(letter)) != 1 or letter in letters_guessed:
+          if letter != "*" and (not letter.isalpha() or len(str(letter)) != 1 or letter in letters_guessed):
             raise ValueError
           break
         except:
-          print("You must enter a single, previously unpicked letter!")
+          print("You must enter a single, previously unpicked letter, or *!")
           if warnings > 0:
             warnings -= 1
             print("You lose a warning; you have", warnings, "warnings left.")
@@ -102,13 +148,19 @@ def hangman(secret_word):
             print("You can't pick a letter? You lose a guess! You have", guesses, "guesses.")
             guesses -= 1
       
-      # Update guesses, show user 
-      letters_guessed.append(letter)
+      # Update guesses, show user if not *
+      if letter != "*": letters_guessed.append(letter)
 
       # Check for win
       if is_word_guessed(secret_word, letters_guessed):
         print ("You win! Score was", guesses * len(set(secret_word)))
         return True
+
+      # Check for hint
+      if letter == "*":
+        print("Here are the possible matches!")
+        show_possible_matches(get_guessed_word(secret_word, letters_guessed))
+        continue
 
       if letter in secret_word:
         print("Good guess! The letter", letter, "is in the word.")
@@ -125,44 +177,6 @@ def hangman(secret_word):
 
 # -----------------------------------
 
-def match_with_gaps(my_word, other_word):
-    '''
-    my_word: string with _ characters, current guess of secret word
-    other_word: string, regular English word
-    returns: boolean, True if all the actual letters of my_word match the 
-        corresponding letters of other_word, or the letter is the special symbol
-        _ , and my_word and other_word are of the same length;
-        False otherwise: 
-    '''
-    my_word = my_word.replace(" ", "")
-    # Build dict of word
-    other_word_dist = {}
-    for (i, letter) in enumerate(other_word):
-      if not letter in other_word_dist:
-        other_word_dist[letter] = []
-      other_word_dist[letter].append(i)
-
-    # Match my_word with dict above
-    for letter in other_word_dist:
-      my_word_distribution = set(my_word[pos] for pos in other_word_dist[letter])
-      if len(my_word_distribution) != 1 or (not letter in my_word_distribution and not "_" in my_word_distribution):
-        return False
-    return True
-
-
-
-def show_possible_matches(my_word):
-    '''
-    my_word: string with _ characters, current guess of secret word
-    returns: nothing, but should print out every word in wordlist that matches my_word
-             Keep in mind that in hangman when a letter is guessed, all the positions
-             at which that letter occurs in the secret word are revealed.
-             Therefore, the hidden letter(_ ) cannot be one of the letters in the word
-             that has already been revealed.
-
-    '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
 
 
 
@@ -171,9 +185,6 @@ def hangman_with_hints(secret_word):
     secret_word: string, the secret word to guess.
     Starts up an interactive game of Hangman.
     
-    * At the start of the game, let the user know how many 
-      letters the secret_word contains and how many guesses s/he starts with.
-      
     * The user should start with 6 guesses
     
     * Before each round, you should display to the user how many guesses
