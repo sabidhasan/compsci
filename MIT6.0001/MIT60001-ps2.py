@@ -107,7 +107,7 @@ def hangman(secret_word):
 
       # Check for win
       if is_word_guessed(secret_word, letters_guessed):
-        print ("You win! Score was", guesses * len(set(secret_word.split())))
+        print ("You win! Score was", guesses * len(set(secret_word)))
         return True
 
       if letter in secret_word:
@@ -123,12 +123,7 @@ def hangman(secret_word):
 
     return False
 
-word = choose_word(wordlist)
-if not hangman(word):
-  print ("You lose, the word was", word)
-
 # -----------------------------------
-
 
 def match_with_gaps(my_word, other_word):
     '''
@@ -139,8 +134,20 @@ def match_with_gaps(my_word, other_word):
         _ , and my_word and other_word are of the same length;
         False otherwise: 
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    my_word = my_word.replace(" ", "")
+    # Build dict of word
+    other_word_dist = {}
+    for (i, letter) in enumerate(other_word):
+      if not letter in other_word_dist:
+        other_word_dist[letter] = []
+      other_word_dist[letter].append(i)
+
+    # Match my_word with dict above
+    for letter in other_word_dist:
+      my_word_distribution = set(my_word[pos] for pos in other_word_dist[letter])
+      if len(my_word_distribution) != 1 or (not letter in my_word_distribution and not "_" in my_word_distribution):
+        return False
+    return True
 
 
 
@@ -162,7 +169,6 @@ def show_possible_matches(my_word):
 def hangman_with_hints(secret_word):
     '''
     secret_word: string, the secret word to guess.
-    
     Starts up an interactive game of Hangman.
     
     * At the start of the game, let the user know how many 
@@ -190,26 +196,6 @@ def hangman_with_hints(secret_word):
     pass
 
 
-
-# When you've completed your hangman_with_hint function, comment the two similar
-# lines above that were used to run the hangman function, and then uncomment
-# these two lines and run this file to test!
-# Hint: You might want to pick your own secret_word while you're testing.
-
-
-if __name__ == "__main__":
-    pass
-
-    # To test part 2, comment out the pass line above and
-    # uncomment the following two lines.
-    
-    # secret_word = choose_word(wordlist)
-    # hangman(secret_word)
-
-###############
-    
-    # To test part 3 re-comment out the above lines and 
-    # uncomment the following two lines. 
-    
-    #secret_word = choose_word(wordlist)
-    #hangman_with_hints(secret_word)
+word = choose_word(wordlist)
+if not hangman(word):
+  print ("You lose, the word was", word)
