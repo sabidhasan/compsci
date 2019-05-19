@@ -6,7 +6,7 @@
 import random
 import string
 
-WORDLIST_FILENAME = "MIT60001-ps2.txt"
+WORDLIST_FILENAME = "MIT60001_ps2.txt"
 
 
 def load_words():
