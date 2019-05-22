@@ -1,4 +1,4 @@
-## Lecture 1 - Optimization Problems
+## Lecture 1+2 - Optimization Problems
 
 **Optimization problem** - optimize an *objective function* that needs to be maximized or minimized, given some *constraints*. Example - shortest path from A to B, or the knapsack problem.
 
@@ -16,13 +16,21 @@ A knapsack that only holds a finite amount (constraint) needs to be filled with 
 - Knapsack has a max capacity of `w`
 - Each item is represented by `<value, weight>`
 - A vector `I` represents the set of all possible items
-- A vector `V` represents the items that have been taken
+- A vector `V` represents the items that have been taken (binary)
 
-Unfortunately, the knapsack problem is `O(2^n)` at best. To solve this problem, here are possible solutions:
+This is an inherently To solve this problem, here are possible solutions:
 
-- **All Possibilities:** Generate a **power set** which is all possible combinations. Remove combinations with too high weight, and get one that maximizes the weight. Unfortunately, this yields way too many possibilities.
+- **All Possibilities:** Generate a **power set** which is all possible combinations. Remove combinations with too high weight, and get one that maximizes the weight. Unfortunately, this yields way too many possibilities. Complexity is `O(2^n)`.
+
+  *Pro* - actually solves the problem   |   *Con* - practically impossible
+
 - **Greedy Algorithm**: Picks stuff in order of most valuable to least valuable. Efficiency for this is `O(n log n)`. Greedy algorithms only use *local optimization*, meaning they don't care what future implications of their choices are.
-- 
+
+  *Pro* - fast and easy				|				*Con* - may not give correct answer
+
+- **Dynamic Programming** - see below.
+
+**Search Trees** - when considering the All Possibilities algorithm, a binary search tree with all possibilities is built (at each node, one branch is to take the item *n*, and the other branch is not take item *n*). Recursively, it calls itself with a list of `itemsToConsider`, which decreases by 1 item at each call (seeing the possibility of taking or not taking the item).
 
 
 
