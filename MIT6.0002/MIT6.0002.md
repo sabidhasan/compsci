@@ -2,8 +2,6 @@
 
 **Optimization problem** - optimize an *objective function* that needs to be maximized or minimized, given some *constraints*. Example - shortest path from A to B, or the knapsack problem.
 
-
-
 **Knapsack Problem**
 
 A knapsack that only holds a finite amount (constraint) needs to be filled with stuff to maximze items (objective function). There are two flavors:
@@ -28,9 +26,31 @@ This is an inherently To solve this problem, here are possible solutions:
 
   *Pro* - fast and easy				|				*Con* - may not give correct answer
 
-- **Dynamic Programming** - see below.
+- **Dynamic Programming** - if there are any **repetitions** in the knapsack, you can use *memoization* to speed the calculation up considerably. The general method is still the *All Possibilities* method.
 
 **Search Trees** - when considering the All Possibilities algorithm, a binary search tree with all possibilities is built (at each node, one branch is to take the item *n*, and the other branch is not take item *n*). Recursively, it calls itself with a list of `itemsToConsider`, which decreases by 1 item at each call (seeing the possibility of taking or not taking the item).
+
+**Dynamic Programming** - DP **memoizes** the answer to a complex problem, rather than recalculating it. This requires a problem to have the same calculation done multiple times.
+
+- Fibonacci and Knapsack problem are really well optimized with DP
+
+
+
+## Lecture 3 - Graph Algorithms
+
+Covers both **Depth First** and **Breadth First** search. Graphs are useful for representing e.g. family trees, maps, rail networks, etc., and are made of:
+
+- **Node** or vertices (these are the points in the graph, and may have properties)
+- **Edges** or arcs (these are the connections between nodes)
+
+Graphs can be **directed** or *digraph* (information flows only one way) or **undirected** (information goes from source to destination and back).
+
+**Max Flow Min Cut** - A method to determine related sections in a directed graph (areas that have intercommunication but are relatively isolated).
+
+To represent a graph programatically, make a `Node` class. An edge is represented by a `Edge` class, with a `source` and `destination` property (these are `Node`s). Now, the graph can be represented via:
+
+1. **Adjacency matrix** - this is a big matrix that has all nodes on X and Y axes and indicates if they are directly connected.
+2. **Adjacency List** - has a `Digraph` class, which uses *dict*. Nodes are keys, and their destinations are values (in a *list*).
 
 
 
