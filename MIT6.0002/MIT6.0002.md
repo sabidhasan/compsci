@@ -82,7 +82,26 @@ def DFS(graph, start, goal, path, shortest):
   return shortest
 ```
 
+**Breadth First Search**
 
+Unlike DFS this explores all the direct children, before going to their children. This means that once a solution has been found *it will be the shortest*, as all others are longer.
 
+Typically coded as an **iterative** algorithm rather than recursive. It depends on the  queue data structure, which is FIFO.
 
+```python
+def BFS(graph, start, goal):
+  init_path = [start]
+  path_queue = [init_path]		# This is what to look for next
+  while len(path_queue) != 0:
+    curr_path = path_queue.pop(0)
+    # is this the target?
+    if curr_path[-1] == goal:
+      return curr_path
+    # Loop thru children, avoiding circles
+    for child in curr_path[-1].children - curr_path:
+      path_queue.append(curr_path + [child])
+   return None		   				 # Nothing was found
+```
+
+For **weighted paths**, depth first search can be modified NOT breadth first search.
 
