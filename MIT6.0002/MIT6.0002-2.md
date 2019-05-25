@@ -12,6 +12,18 @@
 
 Python's `random` library is predictively non deterministic, as it uses a seed based on time.
 
+## Lecture 5 - Random Walks
+
+**Random walks** are a special type of stochastic process wherein an agent *walks* (changes its position) a certain number of steps in each cycle.
+
+When simulating a random walk, always run **sanity checks**, to determine if the model is not giving unexpected results.
+
+Scientific Python Libraries
+
+- numpy
+- scipy
+- matplotlib
+
 
 
   	
