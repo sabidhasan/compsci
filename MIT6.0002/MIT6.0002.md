@@ -47,10 +47,40 @@ Graphs can be **directed** or *digraph* (information flows only one way) or **un
 
 **Max Flow Min Cut** - A method to determine related sections in a directed graph (areas that have intercommunication but are relatively isolated).
 
-To represent a graph programatically, make a `Node` class. An edge is represented by a `Edge` class, with a `source` and `destination` property (these are `Node`s). Now, the graph can be represented via:
+To represent a graph programatically, make a `Node` class and an `Edge` class (contains a `source` and `destination` property, which  are `Node`s). Now, the graph can be represented via:
 
-1. **Adjacency matrix** - this is a big matrix that has all nodes on X and Y axes and indicates if they are directly connected.
-2. **Adjacency List** - has a `Digraph` class, which uses *dict*. Nodes are keys, and their destinations are values (in a *list*).
+1. **Adjacency matrix** - this is a big matrix that has all nodes on X and Y axes and indicates if they are directly connected as Booleans.
+2. **Adjacency List** - has a `Digraph` class, which uses *dict*. Nodes are keys, and their destinations are values (in a *list*). For a `Graph` (non-directed graph), you add the edge from source to dest and dest to source.
+
+**Searching Graphs**
+
+**Depth First Search** - **recursive** algorithm, but can be iterative too. Start at beginning node, and start going as deep as possible, only working back up if going down no longer possible:
+
+```python
+def DFS(graph, start, visited=[]):
+  if not start in visited: visited.append(start)
+  # Loop through all unvisited nodes
+  for unvisited_node in (graph[start].children - visited):
+    visited += DFS(graph, unvisited_node, visited)
+
+DFS(graph, 'A')
+```
+
+DFS can be modified to include a shortest path feature:
+
+```python
+def DFS(graph, start, goal, path, shortest):
+  # Path represents the path used to get to this node
+  path.concat(start)
+  # If the goal is reached, then pass up to parents
+  if start == goal: return path
+  #Loop thru children (-current_path ensures we don't loop)
+  for child_node in start.children - current_path:
+  	child_path = DFS(graph, child_node, goal, path, shortest)
+    if shortest == None or len(shortest) > child_path:
+      shortest = child_path
+  return shortest
+```
 
 
 
