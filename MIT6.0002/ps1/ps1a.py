@@ -74,19 +74,20 @@ def compare_cow_transport_algorithms():
     greedy_cow_transport and brute_force_cow_transport functions here. Use the
     default weight limits of 10 for both greedy_cow_transport and
     brute_force_cow_transport.
-    
-    Print out the number of trips returned by each method, and how long each
-    method takes to run in seconds.
-
-    Returns:
-    Does not return anything.
     """
-    # TODO: Your code here
-    pass
+    cows = load_cows('ps1_cow_data.txt')
+
+    # Run first algo
+    start = time.time()
+    optimal_trip = greedy_cow_transport(cows, 10)
+    end = time.time()
+    print(optimal_trip, "\nNumber of trips:", len(optimal_trip), "which took", end-start, "seconds.")
+
+    # Run second algo
+    start = time.time()
+    optimal_trip = brute_force_cow_transport(cows, 10)
+    end = time.time()
+    print(optimal_trip, "\nNumber of trips:", len(optimal_trip), "which took", end-start, "seconds.")
 
 
-
-cows = load_cows('ps1_cow_data.txt')
-# print(cows)
-print(greedy_cow_transport(cows))
-print(brute_force_cow_transport(cows))
+compare_cow_transport_algorithms()
