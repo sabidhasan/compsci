@@ -58,7 +58,6 @@ class Position(object):
     def __str__(self):  
         return "Position: " + str(math.floor(self.x)) + ", " + str(math.floor(self.y))
 
-
 # === Problem 1
 class RectangularRoom(object):
     """
@@ -79,6 +78,8 @@ class RectangularRoom(object):
         dirt_amount: an integer >= 0
         """
         self.tiles = [[dirt_amount for _ in range(width)] for _ in range(height)]
+        self.width = width
+        self.height = height
     
     def clean_tile_at_position(self, pos, capacity):
         """
@@ -138,13 +139,12 @@ class RectangularRoom(object):
 
         Returns: an integer
         """
-        raise NotImplementedError
+        return self.tiles[n][m]
         
     def get_num_tiles(self):
         """
         Returns: an integer; the total number of tiles in the room
         """
-        # do not change -- implement in subclasses.
         raise NotImplementedError 
         
     def is_position_valid(self, pos):
@@ -154,16 +154,13 @@ class RectangularRoom(object):
         returns: True if pos is in the room and (in the case of FurnishedRoom) 
                  if position is unfurnished, False otherwise.
         """
-        # do not change -- implement in subclasses
         raise NotImplementedError         
 
     def get_random_position(self):
         """
         Returns: a Position object; a random position inside the room
         """
-        # do not change -- implement in subclasses
         raise NotImplementedError        
-
 
 class Robot(object):
     """
@@ -171,35 +168,32 @@ class Robot(object):
 
     At all times, the robot has a particular position and direction in the room.
     The robot also has a fixed speed and a fixed cleaning capacity.
-
-    Subclasses of Robot should provide movement strategies by implementing
-    update_position_and_clean, which simulates a single time-step.
     """
     def __init__(self, room, speed, capacity):
         """
-        Initializes a Robot with the given speed and given cleaning capacity in the 
-        specified room. The robot initially has a random direction and a random 
-        position in the room.
-
         room:  a RectangularRoom object.
         speed: a float (speed > 0)
         capacity: a positive interger; the amount of dirt cleaned by the robot 
                   in a single time-step
         """
-        raise NotImplementedError
+        self.room = room
+        self.speed = speed
+        self.capacity = capacity
+        self.position = room.get_random_position()
+        self.direction = round(random.random() * 360, 2)
 
     def get_robot_position(self):
         """
         Returns: a Position object giving the robot's position in the room.
         """
-        raise NotImplementedError
+        return self.position
 
     def get_robot_direction(self):
         """
         Returns: a float d giving the direction of the robot as an angle in
         degrees, 0.0 <= d < 360.0.
         """
-        raise NotImplementedError
+        return self.direction
 
     def set_robot_position(self, position):
         """
@@ -207,7 +201,7 @@ class Robot(object):
 
         position: a Position object.
         """
-        raise NotImplementedError
+        self.position = position
 
     def set_robot_direction(self, direction):
         """
@@ -215,7 +209,7 @@ class Robot(object):
 
         direction: float representing an angle in degrees
         """
-        raise NotImplementedError
+        self.direction = direction
 
     def update_position_and_clean(self):
         """
