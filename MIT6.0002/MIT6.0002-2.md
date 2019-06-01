@@ -94,7 +94,7 @@ How good this approximation is depends on **skew** - or how evenly distributed t
 - Choose sample size based on skew and pick random sample from population
 - Calculate µ and $\sigma$ (per central limit theorem, µ = population µ)
 - Assume $\sigma$ for sample roughly = $\sigma$ for population, and estimate the SEM
-- Use SEM to get 95% confidence interval
+- Use SEM to get 95% confidence intervals
 
 
 
