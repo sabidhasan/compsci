@@ -6,10 +6,6 @@ import random
 import ps3_visualize
 import pylab
 
-# For python 2.7:
-from ps3_verify_movement27 import test_robot_movement
-
-
 # === Provided class Position
 class Position(object):
     """
@@ -392,6 +388,7 @@ class FaultyRobot(Robot):
         # If faulty set new direction
         if self.gets_faulty():
             self.pick_new_random_direction()
+            return
         # If valid, move and clean
         next_pos = self.position.get_new_position(self.direction, self.speed)
         if self.room.is_position_valid(next_pos):
@@ -414,39 +411,34 @@ def run_simulation(num_robots, speed, capacity, width, height, dirt_amount, min_
     with the input speed and capacity in a room of dimensions width x height
     with the dirt dirt_amount on each tile.
     
-    num_robots: an int (num_robots > 0)
-    speed: a float (speed > 0)
-    capacity: an int (capacity >0)
-    width: an int (width > 0)
-    height: an int (height > 0)
-    dirt_amount: an int
     min_coverage: a float (0 <= min_coverage <= 1.0)
-    num_trials: an int (num_trials > 0)
     robot_type: class of robot to be instantiated (e.g. StandardRobot or
                 FaultyRobot)
     """
-    raise NotImplementedError
+    steps = 0
+    for _ in range(num_trials):
+        # Calculate number of timesteps needed to clean min_coverage percent of room
+        room = EmptyRoom(width, height, dirt_amount)
+        for robot in range(num_robots):
+            robot = robot_type(room, speed, capacity)
+            # Loop until robot cleans room
+            while robot.room.get_num_cleaned_tiles() / robot.room.get_num_tiles() < min_coverage:
+                robot.update_position_and_clean()
+                steps = steps + 1
+    return steps / num_trials / num_robots
 
-
-# print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 5, 5, 3, 1.0, 50, StandardRobot)))
-# print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 10, 10, 3, 0.8, 50, StandardRobot)))
-# print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 10, 10, 3, 0.9, 50, StandardRobot)))
-# print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 20, 20, 3, 0.5, 50, StandardRobot)))
-# print ('avg time steps: ' + str(run_simulation(3, 1.0, 1, 20, 20, 3, 0.5, 50, StandardRobot)))
 
 # === Problem 6
-#
-# ANSWER THE FOLLOWING QUESTIONS:
-#
 # 1)How does the performance of the two robot types compare when cleaning 80%
 #       of a 20x20 room?
-#
+# A) The two robots are quite comparable at 15% failure rates.
 #
 # 2) How does the performance of the two robot types compare when two of each
 #       robot cleans 80% of rooms with dimensions 
-#       10x30, 20x15, 25x12, and 50x6?
-#
-#
+#       10x30       faulty robot slightly worse (846 vs 788)
+#       20x15       faulty robot slightly worse (805 vs 784)
+#       25x12       faulty robot worse (831 vs 786)
+#       50x6        faulty robot worse (844 vs 978)
 
 def show_plot_compare_strategies(title, x_label, y_label):
     """
@@ -490,5 +482,5 @@ def show_plot_room_shape(title, x_label, y_label):
     pylab.show()
 
 
-#show_plot_compare_strategies('Time to clean 80% of a 20x20 room, for various numbers of robots','Number of robots','Time / steps')
+show_plot_compare_strategies('Time to clean 80% of a 20x20 room, for various numbers of robots','Number of robots','Time / steps')
 #show_plot_room_shape('Time to clean 80% of a 300-tile room for various room shapes','Aspect Ratio', 'Time / steps')
