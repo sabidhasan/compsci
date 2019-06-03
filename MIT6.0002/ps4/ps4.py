@@ -13,7 +13,6 @@ class NoChildException(Exception):
     modify it or add any code.
     """
 
-
 def make_one_curve_plot(x_coords, y_coords, x_label, y_label, title):
     """
     Makes a plot of the x coordinates and the y coordinates with the labels
@@ -32,7 +31,6 @@ def make_one_curve_plot(x_coords, y_coords, x_label, y_label, title):
     pl.ylabel(y_label)
     pl.title(title)
     pl.show()
-
 
 def make_two_curve_plot(x_coords,
                         y_coords1,
@@ -64,7 +62,6 @@ def make_two_curve_plot(x_coords,
     pl.ylabel(y_label)
     pl.title(title)
     pl.show()
-
 
 ##########################
 # PROBLEM 1
@@ -144,7 +141,7 @@ class Patient(object):
             int: The total bacteria population at the end of the update
         """
         # Determine who survives
-        surviving_cells = filter(lambda x: x.is_killed(), self.bacteria)
+        surviving_cells = list(filter(lambda x: not x.is_killed(), self.bacteria))
         # Calc pop density
         pop_density = len(surviving_cells) / self.max_pop
         self.bacteria = []
@@ -171,8 +168,10 @@ def calc_pop_avg(populations, n):
     Returns:
         float: The average bacteria population size at time step n
     """
-    pass  # TODO
-
+    total = 0
+    for trial in populations:
+        total += trial[n]
+    return total / len(populations)
 
 def simulation_without_antibiotic(num_bacteria,
                                   max_pop,
@@ -184,16 +183,10 @@ def simulation_without_antibiotic(num_bacteria,
     are used, and bacteria do not have any antibiotic resistance.
 
     For each of num_trials trials:
-        * instantiate a list of SimpleBacteria
-        * instantiate a Patient using the list of SimpleBacteria
         * simulate changes to the bacteria population for 300 timesteps,
           recording the bacteria population after each time step. Note
           that the first time step should contain the starting number of
           bacteria in the patient
-
-    Then, plot the average bacteria population size (y-axis) as a function of
-    elapsed time steps (x-axis) You might find the make_one_curve_plot
-    function useful.
 
     Args:
         num_bacteria (int): number of SimpleBacteria to create for patient
@@ -207,27 +200,31 @@ def simulation_without_antibiotic(num_bacteria,
         populations (list of lists or 2D array): populations[i][j] is the
             number of bacteria in trial i at time step j
     """
-    pass  # TODO
-
+    populations = []
+    for trial in range(num_trials):
+        populations.append([])
+        bacteria = [SimpleBacteria(birth_prob, death_prob) for _ in range(num_bacteria)]
+        patient = Patient(bacteria, max_pop)
+        for time in range(300):
+            pop = patient.update()
+            populations[-1].append(pop)
+    return populations
 
 # When you are ready to run the simulation, uncomment the next line
-# populations = simulation_without_antibiotic(100, 1000, 0.1, 0.025, 50)
+# populations = simulation_without_antibiotic(100, 1000, 0.1, 0.025, 20)
+# y = [calc_pop_avg(populations, i) for i in range(300)]
+# x = list(range(300))
+# make_one_curve_plot(x, y, 'Time (generation)', 'Population', 'Population at Time t')
 
 ##########################
 # PROBLEM 3
 ##########################
-
 def calc_pop_std(populations, t):
     """
     Finds the standard deviation of populations across different trials
-    at time step t by:
-        * calculating the average population at time step t
+    at time step t.
         * compute average squared distance of the data points from the average
           and take its square root
-
-    You may not use third-party functions that calculate standard deviation,
-    such as numpy.std. Other built-in or third-party functions that do not
-    calculate standard deviation may be used.
 
     Args:
         populations (list of lists or 2D array): populations[i][j] is the
@@ -238,13 +235,14 @@ def calc_pop_std(populations, t):
         float: the standard deviation of populations across different trials at
              a specific time step
     """
-    pass  # TODO
-
+    values_at_time_t = [k[t] for k in populations]
+    average = sum(values_at_time_t) / len(values_at_time_t)
+    return (sum([(i - average)**2 for i in values_at_time_t]) / len(values_at_time_t))**.5
 
 def calc_95_ci(populations, t):
     """
     Finds a 95% confidence interval around the average bacteria population
-    at time t by:
+    at time t
         * computing the mean and standard deviation of the sample
         * using the standard deviation of the sample to estimate the
           standard error of the mean (SEM)
@@ -262,8 +260,8 @@ def calc_95_ci(populations, t):
 
         I.e., you should return a tuple containing (mean, width)
     """
-    pass  # TODO
-
+    sem = calc_pop_std(populations, t) / (len(populations) ** 0.5)
+    return (calc_pop_avg(populations, t), 1.96 * sem)
 
 ##########################
 # PROBLEM 4
@@ -453,18 +451,18 @@ def simulation_with_antibiotic(num_bacteria,
 
 # When you are ready to run the simulations, uncomment the next lines one
 # at a time
-total_pop, resistant_pop = simulation_with_antibiotic(num_bacteria=100,
-                                                      max_pop=1000,
-                                                      birth_prob=0.3,
-                                                      death_prob=0.2,
-                                                      resistant=False,
-                                                      mut_prob=0.8,
-                                                      num_trials=50)
+# total_pop, resistant_pop = simulation_with_antibiotic(num_bacteria=100,
+#                                                       max_pop=1000,
+#                                                       birth_prob=0.3,
+#                                                       death_prob=0.2,
+#                                                       resistant=False,
+#                                                       mut_prob=0.8,
+#                                                       num_trials=50)
 
-total_pop, resistant_pop = simulation_with_antibiotic(num_bacteria=100,
-                                                      max_pop=1000,
-                                                      birth_prob=0.17,
-                                                      death_prob=0.2,
-                                                      resistant=False,
-                                                      mut_prob=0.8,
-                                                      num_trials=50)
+# total_pop, resistant_pop = simulation_with_antibiotic(num_bacteria=100,
+#                                                       max_pop=1000,
+#                                                       birth_prob=0.17,
+#                                                       death_prob=0.2,
+#                                                       resistant=False,
+#                                                       mut_prob=0.8,
+                                                    #   num_trials=50)
