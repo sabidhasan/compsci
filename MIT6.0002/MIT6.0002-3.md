@@ -62,21 +62,12 @@ dist(X1,X2,p) = (\sum_{k=1}^{len}{|X1_k-X2_k|^p})^{(1/p)}
 $$
 When `p = 1`, this is the **Manhattan Distance** (sum of differences), and when `p = 2`, this is the **Euclidean Distance** (sum of differences, squared). Manhattan distance is called that because it only goes vertical/horizontally on a graph - no angles.
 
-To test a model a **Confusion Matrix** is built. The positive and negative refer to what the model predicted, not what it actually is:
+Euclidean distance doesn't work when one feature vector is dominant in its value. We **scale linearly** or use **z-scaling** to scale values down to a 0-1 range.
 
-|                |                |
-| -------------- | -------------- |
-| TRUE POSITIVE  | FALSE POSITIVE |
-| FALSE NEGATIVE | TRUE NEGATIVE  |
-
-Can measure **model accuracy** using this, basically what percentage is correct/*true*.
-
-
+To test a model a **Confusion Matrix** is built. The positive and negative refer to what the model predicted, not what it actually is. We can measure **model accuracy** using this, basically what percentage is correct/*true*.
 $$
 accuracy = \frac{TP + TN}{TP + TN + FP + FN}
 $$
-
-
 Also, there is **Sensitivity** (aka recall, or true positive rate) and **Specificity** (selectivity or true negative rate). Generally, these are a trade-off and a **ROC curve** is used to optimize one at another's cost:
 $$
 sensitivity = \frac{TP}{TP + FN}
@@ -85,6 +76,39 @@ $$
 $$
 specificity = \frac{TN}{TN + FP}
 $$
+
+## Lecture 12 - Clustering
+
+The variability within a cluster is the distance from the mean of each point. This is similar to *variance* but omits the $/n$ term.
+$$
+variability(cluster) = \sum{(point[i] - mean)^2}
+$$
+In clustering, we want to minimize variability for each cluster. There are two methods for clustering: **hierarchical clustering** and **k-means**.
+
+**Agglomorative Hierarchical Clustering** - a greedy algorithm with `O(n^3)` complexity. This is a **deterministic** algorithm, meaning it gives the same answer each time.
+
+1. Put each item in its own cluster
+2. Find two most *similar* clusters, and merge them
+3. Continue until desired number of clusters obtained
+
+For step 2, there are multiple ways to define distance:
+
+- **Single-Linkage Distance**: distance between clusters is <u>shortest</u> distance between any two members
+- **Complete Linkage:** distance between two clusters is <u>greatest</u> distance between any two members
+- **Average Linkage:** distance between <u>average</u> of two clusters
+
+**k-Means** 
+
+1. Randomly choose *k* points as initial centroids
+2. Assign all features to whatever centroid they're closest to, based on distance
+3. For each centroid *k*, compute new position for centroid by averaging examples in each cluster
+4. Repeat steps 2-3 until features don't switch what cluster they belong to
+
+k-Means is the fastest clustering algorithm. But, the final convergence depends on the random place we start with, as this is a **non-deterministic algorithm**.
+
+**Scaling** or normalization is very important before doing clustering!
+
+
 
 
 
