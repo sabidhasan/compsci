@@ -31,13 +31,13 @@ To find the best model, it doesn't always make sense to look at the best fit! Ph
 
 What's the harm of picking a higher order model if the coefficients are zeroed out anyway? The problem is that even a small amount of noise leads to massive prediction inaccuracy. Should pick the **simplest model** (lowest order polynomial) that cross validates.
 
-Cross Validation can be one of the following. One common theme with all these is repeatitive training, because one model (especially with limited data) could lead to a false positive or false negative fit (you think the model is good or bad when its the opposite).
+**Cross Validation** can be one of the following. One common theme with all these is repeatitive training, because one model (especially with limited data) could lead to a false positive or false negative fit (you think the model is good or bad when its the opposite).
 
-- **Leave One Out** cross validation - leave one data point out and build a model with the rest. Check how well the prediction is on the left-out point. Repeat for the entire data set, leaving out a different data point each time.
+- **Leave One Out** - leave one data point out and build a model with the rest. Check how well the prediction is on the left-out point. Repeat for the entire data set, leaving out a different data point each time.
 - **k-Fold** - same as LOO, except you divide data set into chunks, and leave one chunk out each time. Better for bigger data sets.
 - **Repeated Random Sampling** - keep a random 20-50% of elements for testing, and keep the rest for sampling. Repeat a number of times
 
-## Lecture 11 - Machine Learning
+## Lecture 11 - Intro to Machine Learning
 
 There are two learning methods:
 
@@ -64,11 +64,13 @@ When `p = 1`, this is the **Manhattan Distance** (sum of differences), and when 
 
 Euclidean distance doesn't work when one feature vector is dominant in its value. We **scale linearly** or use **z-scaling** to scale values down to a 0-1 range.
 
-To test a model a **Confusion Matrix** is built. The positive and negative refer to what the model predicted, not what it actually is. We can measure **model accuracy** using this, basically what percentage is correct/*true*.
+To test a model a **Confusion Matrix** is built. The positive and negative refer to what the model predicted, not what it actually is. We can measure **model accuracy** using this, basically what percentage is correct/*true*. *Accuracy is a poor metric when the data is imbalanced for positive vs. negative examples.*
 $$
 accuracy = \frac{TP + TN}{TP + TN + FP + FN}
 $$
-Also, there is **Sensitivity** (aka recall, or true positive rate) and **Specificity** (selectivity or true negative rate). Generally, these are a trade-off and a **ROC curve** is used to optimize one at another's cost:
+**Sensitivity** (aka **recall**, or true positive rate; how many relevant items are selected)
+**Specificity** (selectivity, **precision** or true negative rate; how many selected items are relevant).
+Generally, these are a trade-off and a **ROC curve** is used to optimize one at another's cost:
 $$
 sensitivity = \frac{TP}{TP + FN}
 $$
@@ -107,6 +109,36 @@ For step 2, there are multiple ways to define distance:
 k-Means is the fastest clustering algorithm. But, the final convergence depends on the random place we start with, as this is a **non-deterministic algorithm**.
 
 **Scaling** or normalization is very important before doing clustering!
+
+## Lecture 13 - Classification (Supervised Learning)
+
+Supervised Learning is divided into:
+
+1. **Regression** (getting a real number from an input)
+2. **Classification** (predicting discrete value, or label, for an input)
+
+Essence of classification is based on a distance matrix - either based on Euclidean or Manhattan distance.
+
+**k-Nearest Neighbors**
+No learning
+Classification involves finding nearest neighbors for input, with an *election* for determining class.
+To choose the optimal number for *k*, it is critical to split data and do cross validation.
+**Disadvantage**: k-NN is slower than other classification methods
+
+
+
+**Logistic Regression**
+Similar to linear regression, except logistic regression predicts *probability* of something (probability of 0 to 1).
+
+Finds **weights** for features (these are analogous to coefficients in linear regression). A *positive* weight means positive correlation with outcome (and vice versa), and the magnitude is how strong the correlation is.
+$$
+probability = \frac{1}{1+e^{-z}}
+$$
+wherein *z* = $\sum{\theta x}$, with $\theta$ being parameters, and *x* being input feature vectors.
+
+
+
+**Currying** - a functional programming principle (requires **First Class Functions**) where a function returns a function with partially applied parameters.
 
 
 
