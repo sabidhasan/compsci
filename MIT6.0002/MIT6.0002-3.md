@@ -136,13 +136,21 @@ probability = \frac{1}{1+e^{-z}}
 $$
 wherein *z* = $\sum{\theta x}$, with $\theta$ being parameters, and *x* being input feature vectors.
 
+Do not pay too much attention to absolute weights - they are only relative, and moreover, multiple features can be correlated, so only rely on the sign.
+
 
 
 **Currying** - a functional programming principle (requires **First Class Functions**) where a function returns a function with partially applied parameters.
 
+## Lecture 14 - Classification (Supervised Learning)
 
+**Receiver Operating Characteristic** helps determine how to work with tradeoff between specificity and sensitivity. It:
 
+- builds a model
+- varies the p (probability cutoff for predicting positive)
+- Plot *sensitivity* vs. (*1 - specificity*)
+- Obtain **AUC** (area under curve)
 
+A perfectly **random classifier** is a straight line, and the area under ROC is a measure of how good the classifier is independent of cutoff.
 
-
-
+![image-20190605213702394](/Users/abidhasan/Google Drive/Programming/compsci/MIT6.0002/assets/image-20190605213702394.png)
