@@ -2,7 +2,7 @@
 # Problem Set 5: Experimental Analysis
 import pylab
 import re
-
+import datetime
 # cities in our weather data
 CITIES = [
     'BOSTON',
@@ -246,28 +246,19 @@ def gen_std_devs(climate, multi_cities, years):
     """
     ret = []
     for year in years:
-        curr_yr = []
-        for month in range(1, 12):
-            for day in range(1, 31):
-                # Get average of cities on this day
+        # Average temp (across all cities) for each day in year
+        curr_yr_daily_temps = []
+        for month in range(1, 13):
+            for day in range(1, 32):
                 try:
+                    # Generate temps for all cities on this date, and get average
                     avg_tmps = [climate.get_daily_temp(city, month, day, year) for city in multi_cities]
-                    curr_yr.append(sum(avg_tmps) / len(avg_tmps))
+                    curr_yr_daily_temps.append(pylab.mean(avg_tmps))
                 except AssertionError:
-                    # Data nto available
+                    # This is not a valid day, or its data doesn't exist
                     continue
-        ret.append(pylab.array(curr_yr).std())
-    return ret
-
-        # for city in multi_cities:
-            # print (year, climate.get_yearly_temp(city, year))
-        # avg_annual_temps_for_year = []
-    #     
-    #         temp = pylab.array(climate.get_yearly_temp(city, year)).mean()
-    #         avg_annual_temps_for_year.append(temp)
-    #     ret.append(pylab.array(avg_annual_temps_for_year).std())
-    # return pylab.array(ret)
-
+        ret.append(pylab.std(curr_yr_daily_temps))
+    return pylab.array(ret)
 
 def evaluate_models_on_testing(x, y, models):
     """
@@ -302,19 +293,18 @@ if __name__ == '__main__':
     climate_model = Climate('data.csv')
     years = pylab.array(TRAINING_INTERVAL)
     test_years = pylab.array(TESTING_INTERVAL)
+    ## Part A.4.1
     # jan_10_temps = []
     # for year in years:
-    #     # get temp jan 10 for nyc
     #     jan_10_temps.append(climate_model.get_daily_temp('NEW YORK', 1, 10, year))
-    
     # y = pylab.array(jan_10_temps)
-    # evaluate_models_on_training(years, y, generate_models(x, y, [1]))
+    # evaluate_models_on_training(years, y, generate_models(years, y, [1]))
 
+    ## Part A.4.2
     # yearly_temps = []
     # for year in years:
     #     yearly_avg_temp = pylab.array(climate_model.get_yearly_temp('NEW YORK', year)).mean()
     #     yearly_temps.append(yearly_avg_temp)
-    
     # y = pylab.array(yearly_temps)
     # evaluate_models_on_training(years, y, generate_models(years, y, [1]))
 
@@ -326,15 +316,21 @@ if __name__ == '__main__':
     # y = moving_average(gen_cities_avg(climate_model, CITIES, years), 5)
     # evaluate_models_on_training(years, y, generate_models(years, y, [1]))    
 
-    # Part D.2
+    # Part D
+    ## Part D.2.1
     # moving_avg_y_training = moving_average(gen_cities_avg(climate_model, CITIES, years), 5)
     # models = generate_models(years, moving_avg_y_training, [1, 2, 20])
     # evaluate_models_on_training(years, moving_avg_y_training, models)
 
+    ## Part D.2.2
     # Calculate moving average for 2010-2015
+    # moving_avg_y_training = moving_average(gen_cities_avg(climate_model, CITIES, years), 5)
     # moving_avg_y_testing = moving_average(gen_cities_avg(climate_model, CITIES, test_years), 5)
+    # models = generate_models(years, moving_avg_y_training, [1, 2, 20])
     # evaluate_models_on_testing(test_years, moving_avg_y_testing, models)
     
     # Part E
-    print(gen_std_devs(climate_model, CITIES, years))
+    # stdevs = gen_std_devs(climate_model, CITIES, years)
+    # avgs = moving_average(stdevs, 5)
+    # evaluate_models_on_training(years, avgs, generate_models(years, avgs, [1]))
     pass
