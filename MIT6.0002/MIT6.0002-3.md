@@ -142,7 +142,7 @@ Do not pay too much attention to absolute weights - they are only relative, and 
 
 **Currying** - a functional programming principle (requires **First Class Functions**) where a function returns a function with partially applied parameters.
 
-## Lecture 14 - Classification (Supervised Learning)
+## Lecture 14/15 - Classification (Supervised Learning)
 
 **Receiver Operating Characteristic** helps determine how to work with tradeoff between specificity and sensitivity. It:
 
@@ -154,3 +154,5 @@ Do not pay too much attention to absolute weights - they are only relative, and 
 A perfectly **random classifier** is a straight line, and the area under ROC is a measure of how good the classifier is independent of cutoff.
 
 ![image-20190605213702394](/Users/abidhasan/Google Drive/Programming/compsci/MIT6.0002/assets/image-20190605213702394.png)
+
+Multiple Hypothesis Correction
