@@ -1,6 +1,6 @@
 ## Lecture 1+2 - Optimization Problems
 
-**Optimization problem** - optimize an *objective function* that needs to be maximized or minimized, given some *constraints*. Example - shortest path from A to B, or the knapsack problem.
+**Optimization problem** - optimize an **objective function** that needs to be maximized or minimized, given some **constraints**. Example - shortest path from A to B, or the knapsack problem.
 
 **Knapsack Problem**
 
@@ -16,19 +16,19 @@ A knapsack that only holds a finite amount (constraint) needs to be filled with 
 - A vector `I` represents the set of all possible items
 - A vector `V` represents the items that have been taken (binary)
 
-This is an inherently To solve this problem, here are possible solutions:
+To solve this problem, here are possible solutions:
 
 - **All Possibilities:** Generate a **power set** which is all possible combinations. Remove combinations with too high weight, and get one that maximizes the weight. Unfortunately, this yields way too many possibilities. Complexity is `O(2^n)`.
 
   *Pro* - actually solves the problem   |   *Con* - practically impossible
 
-- **Greedy Algorithm**: Picks stuff in order of most valuable to least valuable. Efficiency for this is `O(n log n)`. Greedy algorithms only use *local optimization*, meaning they don't care what future implications of their choices are.
+- **Greedy Algorithm**: Picks stuff in order of most valuable to least valuable. Efficiency for this is `O(n log n)`. Greedy algorithms use *local optimization* - don't care about future implications of choices.
 
   *Pro* - fast and easy				|				*Con* - may not give correct answer
 
 - **Dynamic Programming** - if there are any **repetitions** in the knapsack, you can use *memoization* to speed the calculation up considerably. The general method is still the *All Possibilities* method.
 
-**Search Trees** - when considering the All Possibilities algorithm, a binary search tree with all possibilities is built (at each node, one branch is to take the item *n*, and the other branch is not take item *n*). Recursively, it calls itself with a list of `itemsToConsider`, which decreases by 1 item at each call (seeing the possibility of taking or not taking the item).
+**Search Trees** - when considering All Possibilities algorithm, a search tree with all possibilities is built (at each node, one branch is to take the item *n*, and the other branch is not take it). Recursively, it calls itself with a list of `itemsToConsider`, which decreases by 1 item at each call (seeing the possibility of taking or not taking the item). Complexity is `O(n x 2^n)`.
 
 **Dynamic Programming** - DP **memoizes** the answer to a complex problem, rather than recalculating it. This requires a problem to have the same calculation done multiple times.
 
