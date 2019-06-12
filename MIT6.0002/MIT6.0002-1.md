@@ -30,11 +30,19 @@ To solve this problem, here are possible solutions:
 
 **Search Trees** - when considering All Possibilities algorithm, a search tree with all possibilities is built (at each node, one branch is to take the item *n*, and the other branch is not take it). Recursively, it calls itself with a list of `itemsToConsider`, which decreases by 1 item at each call (seeing the possibility of taking or not taking the item). Complexity is `O(n x 2^n)`.
 
-**Dynamic Programming** - DP **memoizes** the answer to a complex problem, rather than recalculating it. This requires a problem to have the same calculation done multiple times.
+**Dynamic Programming** - DP is a way to solve complex problems that have overlapping subproblems, by **memoizing** answers, and prevent recalculations. The overlapping subproblems need to be the same operation with the same input (eg. a sort algorithm can't be DP'd)
 
-- Fibonacci and Knapsack problem are really well optimized with DP
+Fibonacci and Knapsack problem are really well optimized with DP. For this, a **rooted binary tree** is built, which is a directed acyclic graph with:
 
+- One Root
+- Each node (except root) having one parent
+- Each node having at most 2 children
 
+At each node, record the items taken and the undecided items. This is the decision tree, for a knapsack with weight limit of 5:
+
+![image-20190611215158185](/Users/abidhasan/Google Drive/Programming/compsci/MIT6.0002/assets/image-20190611215158185.png)
+
+For the memo, we save the (length of items considered, available space) as key and the result as value.
 
 ## Lecture 3 - Graph Algorithms
 
