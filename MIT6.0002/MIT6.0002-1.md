@@ -48,12 +48,15 @@ For the memo, we save the (length of items considered, available space) as key a
 
 Covers both **Depth First** and **Breadth First** search. Graphs are useful for representing e.g. family trees, maps, rail networks, etc., and are made of:
 
-- **Node** or vertices (these are the points in the graph, and may have properties)
+- **Node** or vertices (these are the points in the graph)
 - **Edges** or arcs (these are the connections between nodes)
 
-Graphs can be **directed** or *digraph* (information flows only one way) or **undirected** (information goes from source to destination and back).
+Graphs can be **directed** or *digraph* (information flows only one way) or **undirected** (information goes from source to destination and back). **Weighted graphs** have values associated with edges. Some graph problems are:
 
-**Max Flow Min Cut** - A method to determine related sections in a directed graph (areas that have intercommunication but are relatively isolated).
+- **Shortest path** - path of edges and nodes to lead from start to end node
+- **Shortest weighted path** - same as above, except weight is minimized
+- **Maximum clique** - a clicque is a section of the graph wherein any two nodes are connected with an edge
+- **Max Flow Min Cut** - a cut a list of edges such that if they are removed, a section of the graph becomes isolated.
 
 To represent a graph programatically, make a `Node` class and an `Edge` class (contains a `source` and `destination` property, which  are `Node`s). Now, the graph can be represented via:
 
@@ -83,7 +86,7 @@ def DFS(graph, start, goal, path, shortest):
   # If the goal is reached, then pass up to parents
   if start == goal: return path
   #Loop thru children (-current_path ensures we don't loop)
-  for child_node in start.children - current_path:
+  for child_node in start.children - path:
   	child_path = DFS(graph, child_node, goal, path, shortest)
     if shortest == None or len(shortest) > child_path:
       shortest = child_path
@@ -94,7 +97,7 @@ def DFS(graph, start, goal, path, shortest):
 
 Unlike DFS this explores all the direct children, before going to their children. This means that once a solution has been found *it will be the shortest*, as all others are longer.
 
-Typically coded as an **iterative** algorithm rather than recursive. It depends on the  queue data structure, which is FIFO.
+Typically coded as an **iterative** algorithm. It depends on the **queue data structure**, which is FIFO.
 
 ```python
 def BFS(graph, start, goal):
