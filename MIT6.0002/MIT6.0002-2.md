@@ -1,10 +1,8 @@
 ## Lecture 4 - Stochastic Thinking
 
-**Causal Non Determinism** - behavior of the physical world cannot be predicted with complete certainty.
+**Deterministic Programs** - the same input leads to same output for a program.
 
-**Predictive Non Determinism** - though many things *are* certain, our knowledge is limited in many cases, so treat things are unknowns.
-
-**Stochastic Process** - any process where state depends on some random element :game_die:. Generally, we can *simulate* stochastic processes more easily than computing them. Here are three laws of stochastic processes:
+**Stochastic Process** - any process where state depends on some random element. Generally, we can simulate stochastic processes more easily than computing them. Here are three laws of stochastic processes:
 
 - Probabilities always range from 0 to 1.
 - If probability of something happening is `p`, the probability of it not happening is `1-p`.
@@ -14,7 +12,7 @@ Python's `random` library is predictively non deterministic, as it uses a seed b
 
 ## Lecture 5 - Random Walks
 
-**Random walks** are a special type of stochastic process wherein an agent *walks* (changes its position) a certain number of steps in each cycle.
+**Random walks** are a special type of stochastic process wherein an agent *walks* (changes its position) a certain number of steps in each cycle. Brownian motion is an example.
 
 When simulating a random walk, always run **sanity checks**, to determine if the model is not giving unexpected results.
 
@@ -87,6 +85,11 @@ Realistically, you can't pick many members at random many times to then calculat
 $$
 SEM = \frac{\sigma}{\sqrt{n}}
 $$
+
+$$
+SEM = \frac{\sigma}{\sqrt{n}}
+$$
+
 where $\sigma$ is the st. dev of the *population*, and n is the number of samples. However, st dev of the sample, actually roughly tracks the st dev of the population if sample size is large enough.
 
 How good this approximation is depends on **skew** - or how evenly distributed the population is. The **sample size** actually doesn't matter for SEM much!
@@ -95,12 +98,6 @@ How good this approximation is depends on **skew** - or how evenly distributed t
 - Calculate µ and $\sigma$ (per central limit theorem, µ = population µ)
 - Assume $\sigma$ for sample roughly = $\sigma$ for population, and estimate the SEM
 - Use SEM to get 95% confidence intervals
-
-
-
-
-
-
 
 
 
