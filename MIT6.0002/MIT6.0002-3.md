@@ -4,20 +4,20 @@
 $$
 Objective\_Function = \sum_{i=0}^{len(data)}{(observed[i] - predicted[i])^2}
 $$
-To minimze this objective function, use **linear regression**:
+To minimze this objective function, use **linear regression** (this works for polynomials too, and sometimes called **polynomial regression**):
 
 - All best fit functions (for a 2D model, this is all possible *lines*) can be represented on a 2D axis - for a line $y = mx + b$, the x-axis holds all *a* values, and the y axis all *b* values.
 - Put a surface over this 2D space, where the height of the surface at point (a, b) is the solution of the objective function - or model - which is using (a, b). Because we used squares in least squares, there is only <u>one</u> surface minimum.
 - The lowest point on that surface is the best (a, b) for fitting data
 - To find lowest, start randomly and walk downhill until no more downhill possible.
 
-`pylab.polyfit` can do linear regression, by giving coefficients that describe the polynomial, for a given degree (of polynomial).
+`pylab.polyfit` can do linear regression, by giving coefficients that describe the polynomial, for a given degree (of polynomial). Furthermore, if the data is logarithmic, we can preprocess it by taking the logarithm (which will be linear for exponential data).
 
-To determine how good  fit a model is, you could:
+To determine how good  fit a model is, you could do one of these.
 
 - Use least squares ( $\Sigma$ (observed[i] - predicted[i])$^2$ ) to compare two models relatively
 
-- Use **R$^2$ value** (guaranteed to be from 0 to 1):
+- Use **R$^2$ value** also called **coefficient of determination** (guaranteed to be from 0 to 1):
   $$
   R^2 = 1 - \frac{\sum(y_i - p_i)^2}{\sum_i(y_i - \mu)^2}
   $$
@@ -39,24 +39,19 @@ What's the harm of picking a higher order model if the coefficients are zeroed o
 
 ## Lecture 11 - Intro to Machine Learning
 
-There are two learning methods:
+Machine learning gives computers the ability to learn without being explicity programmed. Basic ML paradigm:
 
-- **Declarative knowledge** - or memorize facts
-- **Imperative knowledge** - to deduce things
-
-Basic ML paradigm:
-
-- Training data is used to observe a phenomenon
-- Build a model by training
+- **Training data** is used to observe a phenomenon
+- Build a **model** by training
 - Predict something for test data
 
 There are three types of ML paradigms:
 
-- **Supervised Learning** - examples are labelled, you predict either classification or clustering (**k-NN**)
+- **Supervised Learning** - examples are labelled, you predict either **classification** (**k-NN**) or **regression**.
 - **Unsupervised Learning** - examples are unlabelled; how to group them into clusters (**k-means**)
 - **Reinforcement Learning** -system has freedom to make choices and given reward for choices
 
-Need to choose which **features** to use to describe an example - adding too many features could lead to overfitting. Also, we will have to calculate the difference between two **feature vectors**. This is done with **Minkowski Matrix**:
+Need to choose **features** to describe an example. **Feature engineering** is used to remove features that are irrelevant from data set - adding too many features could lead to overfitting. Also, we will have to calculate the difference between two **feature vectors**. This is done with **Minkowski Matrix**:
 $$
 dist(X1,X2,p) = (\sum_{k=1}^{len}{|X1_k-X2_k|^p})^{(1/p)}
 $$

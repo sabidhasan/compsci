@@ -100,10 +100,6 @@ $$
 SEM = \frac{\sigma}{\sqrt{n}}
 $$
 
-$$
-
-$$
-
 where $\sigma$ is the st. dev of the *population*, and n is the number of samples. However, st dev of the sample, actually roughly tracks the st dev of the population if sample size is large enough.
 
 How good this approximation is depends on **skew** - or how evenly distributed the population is. The **sample size** actually doesn't matter for SEM much!
@@ -112,6 +108,3 @@ How good this approximation is depends on **skew** - or how evenly distributed t
 - Calculate µ and $\sigma$ (per central limit theorem, µ = population µ)
 - Assume $\sigma$ for sample roughly = $\sigma$ for population, and estimate the SEM
 - Use SEM to get 95% confidence intervals
-
-
-
