@@ -76,7 +76,7 @@ $$
 
 ## Lecture 12 - Clustering
 
-The variability within a cluster is the distance from the mean of each point. This is similar to *variance* but omits the $/n$ term.
+Clustering is organizing objects into groups with similar members. The variability within a cluster is the distance from the mean of each point. This is similar to *variance* but omits the $/n$ term.
 $$
 variability(cluster) = \sum{(point[i] - mean)^2}
 $$
@@ -103,29 +103,38 @@ For step 2, there are multiple ways to define distance:
 
 k-Means is the fastest clustering algorithm. But, the final convergence depends on the random place we start with, as this is a **non-deterministic algorithm**.
 
-**Scaling** or normalization is very important before doing clustering!
+**Scaling** or normalization is very important before doing clustering, to even out features that are not in the same range. There are different scaling methods:
+
+- **Z-scaling** is scaling such that the range is from 0-1 and standard deviation is 1.
+- **i-Scaling** is scaling such that minimum value is 0, max is 1 and everything else is scaled linearly in the middle
 
 ## Lecture 13 - Classification (Supervised Learning)
 
 Supervised Learning is divided into:
 
 1. **Regression** (getting a real number from an input)
-2. **Classification** (predicting discrete value, or label, for an input)
+2. **Classification** (predicting discrete value, or **class** that is chosen from a finite number of categories, for an input)
 
-Essence of classification is based on a distance matrix - either based on Euclidean or Manhattan distance.
+Essence of classification is based on a distance matrix - either based on Euclidean or Manhattan distance. Classfication can be **one class** or **binary**, or **multi-class**. Results of training are verified using one of three metrics, as determined from a **confusion matrix**:
+
+- **Accuracy** - this is total ratio of correct predictions:
+  (TP+TN) / (TP+TN+FP+FN)
+- **Sensitivity/Recall** - these are positives that are correctly identified:
+  TP / (TP+FN)
+- **Specificity/Precision** - this is negatives that are correctly identified:
+  TN / (TN+FP)
+
+*Accuracy* is a good metric only when the classes are even in number (e.g. if 99.9% of cases are one class, predicting that class for everything would give 99.9% accuracy, even though no learning has occurred!). *Sensitivity* is the true positive rate
 
 **k-Nearest Neighbors**
-No learning
-Classification involves finding nearest neighbors for input, with an *election* for determining class.
-To choose the optimal number for *k*, it is critical to split data and do cross validation.
-**Disadvantage**: k-NN is slower than other classification methods
+Not a learning algorithm really. Classification involves finding nearest neighbors for input, with an *election* for determining class. To choose the optimal number for *k*, it is critical to split data and do cross validation.
 
-
+*Disadvantage*: k-NN is slower than other classification methods
 
 **Logistic Regression**
 Similar to linear regression, except logistic regression predicts *probability* of something (probability of 0 to 1).
 
-Finds **weights** for features (these are analogous to coefficients in linear regression). A *positive* weight means positive correlation with outcome (and vice versa), and the magnitude is how strong the correlation is.
+Finds **feature weights** for all features (these are analogous to coefficients in linear regression). A *positive* weight means positive correlation with outcome (and vice versa), and the magnitude is how strong the correlation is.
 $$
 probability = \frac{1}{1+e^{-z}}
 $$
@@ -143,8 +152,8 @@ Do not pay too much attention to absolute weights - they are only relative, and 
 
 - builds a model
 - varies the p (probability cutoff for predicting positive)
-- Plot *sensitivity* vs. (*1 - specificity*)
-- Obtain **AUC** (area under curve)
+- Plots *sensitivity* vs. (*1 - specificity*)
+- Obtains **AUC** (area under curve)
 
 A perfectly **random classifier** is a straight line, and the area under ROC is a measure of how good the classifier is independent of cutoff.
 
