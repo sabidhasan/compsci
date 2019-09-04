@@ -22,8 +22,10 @@ The common enemy of computational problems is **complexity**, which is countered
 
 **Statements** - describes an action to be <mark>**executed**</mark> by the computer, to produce some change. For example, fetching data from a URL, or assigning an *expression* to a variable. There are two types:
 
-- Assignment statements for primitives
+- Assignment statements for primitives (`x = 2`)
 - `def` statements for function definition
+- Return statements
+- Conditional statements for control (`if`)
 
 **Expression** - describes a computation and <mark>**evaluates**</mark> to a value (e.g. compare with mathematical expressions). In contrast with statements that are executed,  expressions are evaluated. There are two types of expressions
 
@@ -79,3 +81,4 @@ When looking for a value for a name, the LEGB scoping rules are used, but basica
 A functions **domain** is the set of values it can take, its **range** is the set of values it can return, and the **intent** is the relationship between the domain/range.
 
 When a function is called, a new frame in the environment diagram is created for that call. This ensures that the **scope** of a function is local.
+
