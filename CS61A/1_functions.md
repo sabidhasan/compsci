@@ -1,4 +1,4 @@
-# Lecture 1
+# Lecture 1 - Functions
 
 Computer science studies these things:
 
@@ -31,7 +31,7 @@ The common enemy of computational problems is **complexity**, which is countered
 
 - **Call Expressions** - expressions that are evaluated to produce a primitive
 - **Primitive Expressions** - basic values that are built into the language core and evaluate to themselves
-- **Primitive Expressions** - basic primitives that are built into the language
+- **Primitives** - basic primitives that are built into the language
 
 Any computation can be done using a call expression, including those that have operators in Python:
 
@@ -58,7 +58,7 @@ add(1, 2)			# returns 3; same as 1 + 2
 - Easier to test
 - Essential to writing *concurrent programs*
 
-# Lecture 2
+# Lecture 2 - Names
 
 Expressions come in two flavors (call expressions and primitive expressions)
 
