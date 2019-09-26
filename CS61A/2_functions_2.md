@@ -106,3 +106,26 @@ Something has **First Class Status** in a language if:
 
 
 
+# Lecture 5 - Environments
+
+When defining a function:
+
+- Bind name to the function body in the current frame
+- Make Parent of that function be the current frame (this is how closures work)
+
+When running a user defined function, this happens:
+
+- A new frame is created (remember who the parent is - it is where the function was defined - this doesn't change by calling a function!)
+- Bind formal parameters to local fram
+- Execute the body of the function as normal, looking through parent chain for variables
+
+For resolving names, first search the local frame, then the parent frame, then the global frame. What is a **parent frame**:
+
+>  The **parent** of a function is the frame in which it is defined.
+
+
+
+**Function Composition**
+
+**Function composition** refers to making a higher order function that takes two functions, and calls them successively on one input.
+
