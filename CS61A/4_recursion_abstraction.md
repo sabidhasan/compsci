@@ -1,0 +1,69 @@
+# Lecture 9 - Tree Recursion
+
+Order of recursive calls is important to understand behavior of recursive functions.
+
+> A function that calls another function **must wait** for that function to finish before continuing
+
+If two implementations of a function are equally clear, the **shorter is better**.
+For recursive functions, it is often better to define the base case explicitly.
+
+
+
+**Tree Recursion**
+
+Tree recursion is when the body of a recursive function calls itself more than once.
+The computation process evolve into a **tree structure**.
+
+Classic case - **Fibonacci**.
+
+```python
+def fib(n):
+  if n <= 1:
+    return n
+  else:
+    return fib(n-2) + fib(n-1)
+```
+
+Without saving results, the same computation is being executed numerous times, so this implementation is actually less performant than a non-recursive implementation.
+
+
+
+**Counting Partitions**
+
+This is a difficult problem to solve without tree recursion. What are the combinations of numbers less or equal to `max_partition` that add up to `number` in increasing order.
+
+```python
+def count_partition(number, max_partition)
+```
+
+For example, `count_partition(6, 4)` produces:
+
+```
+2 + 4 = 6
+1 + 1 + 4 = 6
+3 + 3 = 6
+1 + 2 + 3 = 6
+...
+```
+
+Break problem into two:
+
+- Use at least one `max_partition`
+- Don't use `max_partition` (instead use `max_partition - 1`)
+
+```python
+def count_partition(num, max_part):
+  if num == 0:
+    return 1
+  elif num < 0:
+    return 0
+  elif max_part == 0:
+    return 0
+  else:
+    with_m = count_partition(num - max_part, max_part)
+    without_m = count_partition(num, max_part - 1)
+    return with_m + without_m
+```
+
+
+
