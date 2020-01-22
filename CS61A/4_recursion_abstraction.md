@@ -67,3 +67,27 @@ def count_partition(num, max_part):
 
 
 
+# Lecture 10 - Data Abstraction
+
+**Native Data Types** - every value in Python has a class that determines what type of value it is. Native data types share two properties:
+
+- Can be expressed using **literals** 
+- There are **built in functions** or operators to manipulate them
+
+For example, for numbers, there are three types: `int`, `float`, and `complex`. (BTW Need to beware of floating point approximation errors).
+
+However, most real values are compound values (date, geographic location, rational numbers, etc) need more complex data structures to represent them.
+
+**Data Abstraction** is a methodology by which a barrier is enforced between *data representation* and *data use*. This allows programs to become more modular. There are functions for:
+
+- constructors (make a complex data type from simpler/primitives)
+- selectors (getters for data from the abstraction)
+
+Programs must be structured so that they operate on abstract data. For this, we must have constructor functions.
+
+Abstraction works **in levels**, and between the levels exist **abstraction barriers**. These separations are important because abstracted functionality can be modified without breaking the rest of the program.
+
+A higher level of abstraction shouldn't cross a lower level (meaning if internally something is expressed as a tuple, there is no need to poke into the tuple if you can accomplish the task with a getter function).
+
+>  You can recognize an abstract data representation by its behavior, rather than its constructor or selectors. 
+
