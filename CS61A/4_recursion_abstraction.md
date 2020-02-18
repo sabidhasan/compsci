@@ -80,8 +80,8 @@ However, most real values are compound values (date, geographic location, ration
 
 **Data Abstraction** is a methodology by which a barrier is enforced between *data representation* and *data use*. This allows programs to become more modular. There are functions for:
 
-- constructors (make a complex data type from simpler/primitives)
-- selectors (getters for data from the abstraction)
+- **constructors** (make a complex data type from simpler/primitives)
+- **selectors** (getters for data from the abstraction)
 
 Programs must be structured so that they operate on abstract data. For this, we must have constructor functions.
 
