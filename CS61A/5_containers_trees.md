@@ -11,9 +11,11 @@ A **sequence** is an ordered collection of values. The sequence is a collection 
 
 Sequence of arbitrary length, created using the following syntaxes, and contains other values (including lists):
 
-- list literal,
+- list literal
 - `list` constructor function
 - list comprehension syntax
+
+Lists are mutable objects, meaning they can be changed after creation. 
 
 ## Sequence Iteration
 
@@ -33,6 +35,8 @@ Common operations for iterating over sequences are:
 
 A data structure is a **closure** if it can be composed of itself. For example, lists can have nested lists, thus they are a closure. These data strcutures allow other complex structures to be used.
 
+For environment diagrams, nested data structures use pointers.
+
 **Strings** are an abstraction of textual data, and implemented as a sequence of characters.
 
 **Dictionaries** are:
@@ -42,6 +46,18 @@ A data structure is a **closure** if it can be composed of itself. For example, 
 - keys cannot be mutable types
 - keys must be unique
 
-**Trees** have a root and branches (which are also trees). A tree with no branches is called a **leaf**. A tree contained within a tree is called a subtree. The Fibonacci sequence can be interpreted as a tree.
-
 **Linked Lists** consist of a pair containing the first element of the sequence, and the rest of the sequence as the second part of the pair, as another linked list. Iterating through linked lists can be done recursively or iteratively, as well as implementing a `length` and `append` method.
+
+
+
+#  Lecture 12 - Trees
+
+**Trees** are a data structure for representing heirarchical relationships.
+
+They have a **root** (or root node) and **branches** (which are also trees). A tree with no branches is called a **leaf** - the end of the tree. A tree contained within a tree is called a **subtree**. A **parent node** is one that has branches, while a child node has parents.
+
+The Fibonacci sequence can be interpreted as a tree.
+
+Can represent each level as an array, where element 0 is the label for a node, and the elements 1...n are the nodes (which are trees themselves).
+
+Generally, tree traversal functions are **recursive**, and processing a leaf is the base case (as you cannot traverse anymore).
