@@ -21,11 +21,32 @@ The **nonlocal** unary keyword states that the variable affected will occur in a
 
 
 
-**Referential Transparency** refers to the idea that a subexpression can be substituted with its value, and will behave the same. When impure functions (e.g. with the nonlocal keyword) are used, they will remove referential transparency.
+**Referential Transparency** refers to the idea that an expression is the sum of its subexpressions' values. When impure functions (e.g. with the `nonlocal` keyword) are used, they will remove referential transparency because the environment is changed.
 
 
 
 **Iterators** are a way to process sequential values. Python implements this with the `iter` function, `next ` function, and  `StopIteration` exception. An **iterable** value is one that can produce an iterator. A **generator** is an iterator that is reeturned by a **generator function**. This is created with the `yield` keyword.
+
+## Lecture 14
+
+**Mutable Functions** have data associated with them that changes. For example, a HOF with closure variable, will be a mutable function.
+
+The local state of these functions is stored in their parent's scope.
+
+There are two ways to update local state:
+
+- Use `nonlocal` keyword (otherwise, it attempts to assign the variable in the current function's frame). The name listed in `nonlocal` have to be defined in an enclosing scope.
+- Use a mutable value like a list (this doesn't need `nonlocal` because the list is mutable)
+
+Here is what the **assignment statement** does:
+
+1. If no `nonlocal` and variable doesn't exist, it creates new variable in current frame
+2. If no `nonlocal` and variable exists, it rebinds variable in current frame
+3. If `nonlocal` and variable in enclosing frame, it rebinds variable in enclosing frame
+4. If `nonlocal` and variable doesn't exist in enclosing frame, it raises SyntaxError
+5. If `nonlocal` and variable exists in enclosing frame and current frame, it raises SyntaxError
+
+
 
 
 
