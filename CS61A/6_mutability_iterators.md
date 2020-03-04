@@ -1,4 +1,4 @@
-## Lecture 13
+## Lecture 13 - Mutable Values
 
 **Objects** group behavior and data together and have **attributes** and **methods**. They abstract things, properties and proesses to give their behavior.
 
@@ -27,7 +27,7 @@ The **nonlocal** unary keyword states that the variable affected will occur in a
 
 **Iterators** are a way to process sequential values. Python implements this with the `iter` function, `next ` function, and  `StopIteration` exception. An **iterable** value is one that can produce an iterator. A **generator** is an iterator that is reeturned by a **generator function**. This is created with the `yield` keyword.
 
-## Lecture 14
+## Lecture 14 - Mutable Functions
 
 **Mutable Functions** have data associated with them that changes. For example, a HOF with closure variable, will be a mutable function.
 
@@ -49,4 +49,21 @@ Here is what the **assignment statement** does:
 
 
 
+
+## Lecture 15 - Iterators & Generators
+
+Sequential data can be represented using iterators, which allow accessing data in order one at a time.
+
+`iter` produces an iterator for an iterable value
+`next` gives the next value from an iterator
+
+For statements iterate over an *iterator* (`iter`) or over an iterable (like a `list` or `range`).
+When iterating over an iterable, the for loop creates an iterator and iterates over it. For an iterator, it will just iterate. The consequence being that once the iterator is extinguished, it cannot iterate any longer.
+
+
+
+A **generator** is a special iterator that comes from a function (other special iterators are maps, filters, zips, etc.). A generator function demarcated by `yield` keyword.
+Function execution is paused when the `yield` keyword is encountered.
+
+A `yield from <iterable>` syntax allows yielding from an iterable one by one in turn
 
