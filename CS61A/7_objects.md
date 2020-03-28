@@ -9,10 +9,24 @@ Computation using distributed state - state is kept in objects akin to the closu
 - **Classes** vs **Instances**
 
 - Python distinguishes between **bound methods** and **functions** - methods are pre-filled in with the `self` argument
+  Dot notation produces a bound method from an object (`self` parameter is pre-bound)
 
 
-
-OOP represents **is-a** relationships, so child classes *should be* a type of their parent classes.
 
 The **method resolution order** determines the order in which method resolution is determined for an object.
+
+**Attributes** - parts of objects (name-value pairs)
+
+
+
+## Lecture 17 - Inheritance
+
+Inheritance links classes together - allow DRY code
+
+`super()` allows calling a method in the parent class, pre-bound with `self`.
+
+Base class attributes aren't copied into subclasses! (**MRO** is what finds those values when looking up)
+
+**Composition** - when an object as another object as an attribute (as opposed to Inheritance). 
+OOP represents **is-a** relationships, so child classes *should be* a type of their parent classes.
 
