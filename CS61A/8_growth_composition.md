@@ -20,7 +20,11 @@ R(n) = \Theta(f(n))
 $$
 where $\Theta$ is some function that abstracts complex, input-specific growth factors, and generalizes the input vs. the actual growth (*R*). **Theta notation** or big O notation is used to qualify this - what function models the average growth for a method as a function of input.
 
-
+| Input Type | Meaning of Input Size                                        |
+| ---------- | ------------------------------------------------------------ |
+| Number     | Magnitude                                                    |
+| List       | Length of list                                               |
+| Other      | e.g. for a **Tree**, it is Number of nodes in the tree / height of the tree |
 
 Rules:
 
@@ -62,3 +66,14 @@ A Binary Tree can be implemented using a Linked List.
 Searching a BST is a `O(log n)` procedure, assuming the tree is **balanced**, meaning each subtree has roughly same number of nodes. The same tree can be represented in various ways:
 
 ![image-20200405223921899](/Users/abidhasan/Drive_old/Programming/compsci/CS61A/assets/image-20200405223921899.png)
+
+
+
+## Lecture 21 - Ordered Sets
+
+Set functions:
+
+- **Union**: return new set with elements in either
+- **Intersection**: return new set which contains elements in both
+- **Adjoin**: return new set with an element added
+
