@@ -77,3 +77,41 @@ Set functions:
 - **Intersection**: return new set which contains elements in both
 - **Adjoin**: return new set with an element added
 
+
+
+## Lecture 22 - Special Trees
+
+**Binary trees** (BTree) are trees with two branches. To enforce the constraint of two branches, the BTree uses an Empty node. For something to be a leaf, it means it has two empty nodes as children.
+
+A binary tree is used for **Binary Searching** - finding a value in a sorted sequence. A binary search tree has node who:
+
+- have right branches with all values less than the parent node
+- have left branches with all values less than the parent node
+
+Searching is an $O(log\ n)$ process - half the work is being discarded at each step. *There are multiple valid binary search trees for any list*.
+
+The best binary search tree is **balanced** - the left and right branch have ~ same number of nodes. This maximizes the `O(log n)` search speed.
+
+To test for membership:
+
+- If root matches search, return True
+- If root is empty, return False
+- If root < elem, recursively call search on left child
+- If root > elem, recursively call search on right child
+
+
+
+Adjoining to a BST (this is a set represented as a BST):
+
+```python
+def adjoin(bst, val):
+  if bst is BTree.empty:
+    return BTree(val)
+  elif bst.label == val:
+    return bst	# Value already exists, so just return original tree
+  elif bst.label < val:
+    return BTree(bst.label, bst.left, adjoin(bst.right, val)) 
+  elif bst.label > val:
+    return BTree(bst.label, adjoin(bst.left, val), bst.right)
+```
+
