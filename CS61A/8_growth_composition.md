@@ -88,7 +88,7 @@ A binary tree is used for **Binary Searching** - finding a value in a sorted seq
 - have right branches with all values less than the parent node
 - have left branches with all values less than the parent node
 
-Searching is an $O(log\ n)$ process - half the work is being discarded at each step. *There are multiple valid binary search trees for any list*.
+Searching is a  $O(log\ n)$  process - half the work is being discarded at each step. *There are multiple valid binary search trees for any list*.
 
 The best binary search tree is **balanced** - the left and right branch have ~ same number of nodes. This maximizes the `O(log n)` search speed.
 
