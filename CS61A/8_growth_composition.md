@@ -65,7 +65,7 @@ A Binary Tree can be implemented using a Linked List.
 
 Searching a BST is a `O(log n)` procedure, assuming the tree is **balanced**, meaning each subtree has roughly same number of nodes. The same tree can be represented in various ways:
 
-![image-20200405223921899](/Users/abidhasan/Drive_old/Programming/compsci/CS61A/assets/image-20200405223921899.png)
+![image-20200405223921899](/Users/abidhasan/Google Drive/Programming/compsci/CS61A/assets/image-20200405223921899.png)
 
 
 
@@ -114,4 +114,13 @@ def adjoin(bst, val):
   elif bst.label > val:
     return BTree(bst.label, adjoin(bst.left, val), bst.right)
 ```
+
+
+
+## Lecture 23 - Examples of Data
+
+"Guest lecture" by [Alan Kay](https://www.youtube.com/watch?v=kzDpfk8YhlE&list=PL6BsET-8jgYUlSbq0p54SmIzZ2JYPXGts&index=2) showing early graphical advances in the 1960s, a lot of which led to later inventions such as Apple products:
+
+- Ivan Sutherland and invention of the GUI
+- Stanford research showing distributed computing that can be edited concurrently by two users
 
