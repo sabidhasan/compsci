@@ -6,11 +6,15 @@ This idea is built up using **Scheme**, which is a dialect of **Lisp** (the seco
 
 Scheme programs consist of primitives which are base values, and call expressions, which are essentially functions:
 
-- **Primitives**: 2, 3.3, true, +, ...
+- **Primitives** and **Symbols**: `2`, `3.3`, `#t`, `+`, ...
 - **Call Expressions**: `(quotient 10 2)` or `(not true)`
 - **Special Forms**, discussed below
 
-Call expressions include an operator and zero or more operands in parentheses. Scheme uses **prefix notation**. Functions in Scheme are called **procedures**. Spacing is entirely optional in Scheme/Lisp.
+**Primitives**:
+**Symbols** are like a name, but also a type of value. A symbol starts with `'` single quote.
+**Booleans** are simple - all values are falsy, except true
+
+**Call expressions** include an operator and zero or more operands in parentheses. Scheme uses **prefix notation**. Functions in Scheme are called **procedures**. Spacing is entirely optional in Scheme/Lisp.
 
 Some common built in functions:
 
@@ -31,7 +35,10 @@ Things can be defined using the `define` special form:
 - Defining variables: `(define <symbol> <expression>)` for example `(define pi 3.14)`
 - Defining functions: `(define (<symbol> <parameters>) <body>)`
 
-Note that Scheme does lazy evaluation. Example of a function in Scheme
+Scheme does *lazy evaluation*.
+All expressions in Scheme evaluate to a single value, unlike Python, where if statements control program flow. 
+All functions return the value of the last expression in the body
+Example of a function in Scheme:
 
 ```scheme
 (define (abs x)
@@ -55,7 +62,7 @@ A **list or array** can be expressed in Scheme using a built in type called a **
 - `cons` is a procedure that creates a pair: `(cons 1 2)`
 - `car` is a procedure that returns the first element of a pair
 - `cdr` is a procedure that returns the second element of a pair
-- `nil`, or `'()'` is an empty list
+- `nil`,` `'()`, or `'()' is an empty list
 
 A **dotted list** is a broken list, and it is one that doesn't have follow the linked list recursive definition (i.e. the second item in the pair is **not** `nil` or another pair).
 
@@ -69,6 +76,8 @@ Helpful methods related to lists:
 - `pair?` determines if something is a pair
 - `null?` determines if something is `nil`
 - `list` which makes a list from parameters: `(list 1 2 3 4 5)`
+- **quote form** which can build a list: `'(1 2 3 4 5)`
+- `append`, which concatenates two lists
 
 
 
