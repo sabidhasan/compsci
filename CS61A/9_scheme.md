@@ -26,14 +26,20 @@ Some common built in functions:
 **Special Forms** are any combination that is not a call expression. Examples:
 
 - `(if <predicate> <consquent> <alternative>)`
-- `(and <e1> <e2> ...)`
-- `(or <e1> <e2>)`
+- `(and <e1> <e2> ...)` - defaults to `#t`
+- `(or <e1> <e2>)` - defaults to `#f`
 - `(not <e>)`
 
 Things can be defined using the `define` special form:
 
 - Defining variables: `(define <symbol> <expression>)` for example `(define pi 3.14)`
 - Defining functions: `(define (<symbol> <parameters>) <body>)`
+
+For **equality**, Scheme has three options:
+
+1. `=` compares numbers only, throws error on other types
+2. `eq?` compares identity (`is` in Python)
+3. `equal?` compares values (`==` in Python), so two equivalent lists are `equal?`, but not `eq?`
 
 Scheme does *lazy evaluation*.
 All expressions in Scheme evaluate to a single value, unlike Python, where if statements control program flow. 
@@ -79,6 +85,13 @@ Helpful methods related to lists:
 - **quote form** which can build a list: `'(1 2 3 4 5)`
 - `append`, which concatenates two lists
 
+**Dot Rule** - When there is a dot immediately followed by a open parenthesis, the dot and the set of parentheses are omitted.
+
+```scheme
+scm> (1 2 (3 . (4 . 5)))
+(1 2 (3 4 . 5))
+```
+
 
 
 **Symbolic Programming**
@@ -88,14 +101,14 @@ The **single quotation mark** allows directly evaluating symbols, and is used fo
 1. Symbols typically stand for values but quotation allows constructing lists out of symbols
 2. List output can be evaluated in to the underlying lists
 
-Any expression that is not evaluated is said to be **quoted**.
+Any expression that is not evaluated is said to be **quoted**. Quotes stop an expression from being evaluated, and instead use it as a symbol/list.
 
 ```scheme
 > (list 'a 'b)
 (a b) 		; note that a and b don't need be defined
 
 > (car '(a b c))
-a
+a	  ; interpreted as a list
 
 > '(1 2 . 3)
 (1 2 . 3)
@@ -105,4 +118,25 @@ a
 ```
 
 You can refer even to symbols that have not been defined yet!
+
+
+
+**Sierpinski's Triangle** - implemented in Scheme in lecture 25s
+
+
+
+**Tail Recursion**
+
+- Tail recursion makes the recursive function close the frame rather than adding to the call stack. If no more work left, then we can call self again without waiting for results
+- Function is **tail recursive** if every recursive call is a tail call
+- This can be done by passing the result to the next call, rather than waiting for the result and appending to work done in a single call
+
+How to Tail Call Optimize:
+
+- Create a helper method that does most of the work, and takes another argument for `result` so far
+- Call the helper from the outer function with base result (e.g. 0 as result)
+- Things that are changing from one iteration to the next (i.e. the result) should be parameters in the helper (tail-call-optimized) function
+- The base case should return the final answer which is the new `result` parameter, not `nil`/0/etc.
+
+
 
