@@ -140,3 +140,54 @@ How to Tail Call Optimize:
 
 
 
+## Lecture 26 - Interpreters
+
+**Interpreters** read input program from text (string), and parse it to interpret it as a hierarchical structure of the expressions it represents. For example, in Scheme, this is realtively easy because of the matched parentheses:
+
+```scheme
+(<element_0> <element_1> ... <element_n>)
+```
+
+There are two types of programming languages:
+
+1. **Machine Languages**: statements *interpreted by the hardware*, as they represent operations on the CPU directly. Memory operations directly target hardware also - no abstraction mechanisms.
+2. **High-level Languages**: statements are interpreted by another program and **compiled** into another language that the CPU understands.
+
+
+
+**Metalinguistic Abstraction**:
+
+A language is created to abstract functionality so that a problem domain is simplified, or to suit a particular type of application. For example:
+
+- **Type of Application**: Erlang is good for concurrency, and is good for e.g. chat server
+- **Problem Domain**: Wiki markup languages are good for richly formatted, highly linked documents
+
+A new programming language has two features:
+
+1. **Syntax**: the legal statements/expressions in a language
+2. **Semantics**: the rules governing how the expressions are evaluated
+
+
+
+**Parsing Input**
+
+A parser takes text and returns an expression. Consists of a two steps:
+
+1. **Lexical Analysis** / **Tokenization**:
+   Text is parsed into **tokens**.
+   Tokens represent components (e.g. numbers, symbols specific to the language, special characters like brackets)
+   Raises syntax errors if tokens are malformed
+2. **Syntactic Analysis**:
+   Takes the tokens to produce underlying meaning
+   For example, parse bracketed list as a Scheme linked list
+
+Syntactic analysis is done **recursively**. Base case is when token is a symbol/number; otherwise, we call the syntactic analyzer recursively. Though the structure of the code is tree-like, he implements it as a linked list:
+
+<img src="./assets/Screen Shot 2020-12-13 at 6.53.09 PM.png"/>
+
+
+
+**Read Eval Print Loop (REPL)**
+
+The REPL offers an interactive interpreter for many languages for line by line evaluation, while showing any errors raised.
+
