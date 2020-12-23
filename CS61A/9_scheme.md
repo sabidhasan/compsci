@@ -193,5 +193,51 @@ The REPL offers an interactive interpreter for many languages for line by line e
 
 
 
-## Lecture 28 - 
+## Lecture 28 - Interpreters
 
+To have a useful programming language, two features are required:
+
+- Binding names to values (**assignments**)
+- Defining operations (**functions**)
+
+There are three components to building an interpreter for a complete language:
+
+1. Parser, or **syntactic analyzer**, which produces expressions for further consumption (for example, this converts `'(1 2)` into `(quote (1 2))`), as the quote character is shorthand. It also catches `SyntaxError`s.
+2. An **evaluation function**, called `eval` works recursively. It differentiates *primitives* from *special forms* from *call expressions*, and it calls an `apply` function for call expressions.
+3. Actual computation is done by `apply`, which **applies** procedures given some arguments. There are two types: *build in procedures* and *user-defined*. In either case, `eval` is called to actually compute
+
+![image-20201222224133694](./assets/image-20201222224133694.png)
+
+Evaluation works as such:
+
+```python
+>>> def scheme_eval(expr, env):
+        """Evaluate Scheme expression expr in environment env."""
+        if scheme_symbolp(expr):
+            return env[expr]
+        elif scheme_atomp(expr):
+            return expr
+        first, rest = expr.first, expr.second
+        if first == "lambda":
+            return do_lambda_form(rest, env)
+        elif first == "define":
+            do_define_form(rest, env)
+        else:
+          	# call self recursively to get arguments and procedure
+            procedure = scheme_eval(first, env)
+            args = rest.map(lambda operand: scheme_eval(operand, env))
+            return scheme_apply(procedure, args, env)
+```
+
+
+
+Scheme combinations are represented as Scheme lists: The expression `(+ 2 x)` is a three-element list containing the symbol `+`, the number 2, and the symbol `x`. 
+
+ has to deal with a few outcomes:
+
+1. Special forms (`if`, `cond`, `and`, `or`)
+2. Primitives (numbers, booleans)
+3. Symbols (looked up from a dictionary)
+4. `define` for binding symbols to values
+5. Quote special form (for quoted lists)
+6. 
