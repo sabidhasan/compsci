@@ -1,4 +1,4 @@
-## Lecture 24 - Scheme
+## Lecture 25 - Scheme
 
 The most fundamental concept of programming is that of an interpreter - a program, which is just text, is only given meaning via another program, which is the interpreter.
 
@@ -140,7 +140,7 @@ How to Tail Call Optimize:
 
 
 
-## Lecture 26 - Interpreters
+## Lecture 27 - Calculator (Scheme Interpreter)
 
 **Interpreters** read input program from text (string), and parse it to interpret it as a hierarchical structure of the expressions it represents. For example, in Scheme, this is realtively easy because of the matched parentheses:
 
@@ -190,4 +190,8 @@ Syntactic analysis is done **recursively**. Base case is when token is a symbol/
 **Read Eval Print Loop (REPL)**
 
 The REPL offers an interactive interpreter for many languages for line by line evaluation, while showing any errors raised.
+
+
+
+## Lecture 28 - 
 

@@ -1,4 +1,4 @@
-## Lecture 25 - Exceptions
+## Lecture 26 - Exceptions
 
 Python **raises an exception** when error occurs, and handled by program. Unhandled exceptions halt execution and print **stack trace**. Python exceptions have *non-local* continuations of control - meaning if `f` calls `g` which calls `h` which raises an exception, then the error can throw control back to `f` bypassing `g`.
 
