@@ -200,13 +200,13 @@ To have a useful programming language, two features are required:
 - Binding names to values (**assignments**)
 - Defining operations (**functions**)
 
-There are three components to building an interpreter for a complete language:
+Interpreters can be thought of as **general computing machines**, which can be parameterized to simulate a computation. There are three components to building an interpreter for a complete language:
 
 1. Parser, or **syntactic analyzer**, which produces expressions for further consumption (for example, this converts `'(1 2)` into `(quote (1 2))`), as the quote character is shorthand. It also catches `SyntaxError`s.
 2. An **evaluation function**, called `eval` works recursively. It differentiates *primitives* from *special forms* from *call expressions*, and it calls an `apply` function for call expressions.
 3. Actual computation is done by `apply`, which **applies** procedures given some arguments. There are two types: *build in procedures* and *user-defined*. In either case, `eval` is called to actually compute
 
-![image-20201222224133694](./assets/image-20201222224133694.png)
+<img src="./assets/image-20201222224133694.png" style="zoom:50%;" />
 
 Evaluation works as such:
 
@@ -240,4 +240,35 @@ Scheme combinations are represented as Scheme lists: The expression `(+ 2 x)` is
 3. Symbols (looked up from a dictionary)
 4. `define` for binding symbols to values
 5. Quote special form (for quoted lists)
-6. 
+
+
+
+## Lecture 29 - Tail Calls and Scoping Rules
+
+There are a few different types of **Scoping** rules:
+
+- Scheme/Python both use dynamic or **lexical** **scoping**: the parent of a frame is the environment in which a function was defined
+- Some languages use **dynamic** **scoping**: The parent of a frame is the environment in which a function was called
+
+This is most prominent when a function - say `x` - calls another function - say `y`. In a dynamically scoped language, `y`'s frame will contain `x` as a parent, whereas in a lexically scoped language, `y`'s frame will be the global frame.
+
+
+
+Some functional programming tenets:
+
+- name value bindings permanent
+- no re-assignment and no mutability
+- all functions are pure functions
+
+Benefits of functional programming:
+
+- value of evaluating expressions in a method is irrelevant of the order in which the expressions are evaluated
+- In-parallel evaluation
+- **Referential Transparency** - subexpressions can be substituted for their values without changing the effect
+
+
+
+**Tail Call optimized** languages ensure that recursive calls don't create extra frames on the call stack if it is not needed to keep the frame. You can rewrite non-tail call optimized functions to be TCO'd.
+
+<img src="./assets/image-20201227174842642.png" style="zoom:35%;" />
+
