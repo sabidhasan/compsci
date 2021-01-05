@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    CS50 Stock
+{% endblock %}
+
+{% block main %}
+{{ o }}
+<h2>Cash: <strong>{{ c }}</strong></h2>
+
+{% if msg %}
+    </br>
+    <table>
+        <tr id="header">
+            <td><strong>Stock Name</strong></td>
+            <td><strong>Symbol</strong></td>
+            <td><strong>Date Purchased</strong></td>
+            <td><strong>Amount Owned</strong></td>
+            <td><strong>Price</strong></td>
+            <td><strong>Total Value</strong></td>
+        </tr>
+        {% for item in msg %}
+        <tr>
+            <td>{{ item["full_name"] }}</td>    
+            <td>{{ item["stockname"] }}</td>    
+            <td>{{ item["Date"] }}</td>    
+            {% if item.get("Sold/Bought") %}
+                <td class="{{ item["Sold/Bought"] }}">{{ item["SUM(amountpurchased)"] }}</td> 
+            {% else %}
+                <td>{{ item["SUM(amountpurchased)"] }}</td>    
+            {% endif %}
+            <td>${{ item["price"] }}</td>    
+            <td>${{ item["total_value"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Cash Balance : <strong>{{ cb }}</strong></h2>
+{% else %}
+    <h2>You have no stocks yet! Buy some <a href = "{{ url_for('buy') }}">here</a></h2>
+{% endif %}
+
+
+{% endblock %}

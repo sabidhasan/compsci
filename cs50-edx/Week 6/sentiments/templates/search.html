@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block subtext %}
+@{{ screen_name }}
+{% endblock %}
+
+{% block body %}
+{{ chart | safe }}
+<h2>Tweets analyzed:{{ total}}</h2>
+{% endblock %}

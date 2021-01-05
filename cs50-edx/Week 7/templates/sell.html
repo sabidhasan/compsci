@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell Stock
+{% endblock %}
+
+{% block main %}
+    {% if msg %}
+        <h3 style="color:green">{{ msg }}</h3>
+    {% endif %}
+    <form action="{{ url_for('sell') }}" method="post">
+        <strong>Enter an amount of stock to sell</strong>
+        <fieldset>
+            <div class="form-group">
+                <input autocomplete="off" msgautofocus class="form-control" name="stock" placeholder="Stock Name" type="text"/>
+                </br><input autocomplete="off" autofocus class="form-control" name="number" placeholder="Amount" type="text"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">Sell</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}
